@@ -1,0 +1,16 @@
+.shadow-inner {
+  box-shadow:
+    rgb(204, 219, 232) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.top-navbar {
+  height: 250px;
+}
+
+.navs {
+  height: 50px;
+}
+.fa-plus {
+  font-size: 32px;
+}

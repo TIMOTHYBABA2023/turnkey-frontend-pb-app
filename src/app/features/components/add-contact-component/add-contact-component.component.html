@@ -1,0 +1,200 @@
+<div class="d-flex flex-column align-items-center p-4">
+  <div class="alert alert-danger m-2" *ngIf="backendError">
+    {{ backendError }}
+  </div>
+  <div
+    class="text-primary m-2 d-flex justify-content-between align-items-center"
+    *ngIf="successMessage"
+  >
+    <span>{{ successMessage }}</span>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="closeSuccessMessage()"
+    ></button>
+  </div>
+  <form
+    [formGroup]="contactForm"
+    (ngSubmit)="onSubmit()"
+    class="custom-box greyish p-4"
+  >
+    <div class="form-group">
+      <label for="firstName">Firstname</label>
+      <input
+        type="text"
+        id="firstName"
+        formControlName="firstName"
+        class="form-control"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          contactForm.get('firstName')?.invalid &&
+          (contactForm.get('firstName')?.touched ||
+            contactForm.get('firstName')?.dirty)
+        "
+      >
+        {{ getErrorMessage("firstName") }}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Lastname</label>
+      <input
+        type="text"
+        id="lastName"
+        formControlName="lastName"
+        class="form-control"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          contactForm.get('lastName')?.invalid &&
+          (contactForm.get('lastName')?.touched ||
+            contactForm.get('lastName')?.dirty)
+        "
+      >
+        {{ getErrorMessage("lastName") }}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          contactForm.get('email')?.invalid &&
+          (contactForm.get('email')?.touched || contactForm.get('email')?.dirty)
+        "
+      >
+        {{ getErrorMessage("email") }}
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="text"
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        class="form-control"
+      />
+      <small
+        class="text-danger"
+        *ngIf="
+          contactForm.get('phoneNumber')?.invalid &&
+          (contactForm.get('phoneNumber')?.touched ||
+            contactForm.get('phoneNumber')?.dirty)
+        "
+      >
+        {{ getErrorMessage("phoneNumber") }}
+      </small>
+    </div>
+    <div class="form-group">
+      <label for="mobileNumber">Mobile Number</label>
+      <input
+        type="text"
+        id="mobileNumber"
+        formControlName="mobileNumber"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="workPhone">Work Phone</label>
+      <input
+        type="text"
+        id="workPhone"
+        formControlName="workPhone"
+        class="form-control"
+      />
+    </div>
+    <div class="d-flex flex-column mb-3">
+      <label for="contactGroup" class="form-label">Group</label>
+      <select
+        id="contactGroup"
+        formControlName="contactGroup"
+        class="form-select"
+      >
+        <option value="">-- Select a group (optional) --</option>
+        <option
+          *ngFor="let contactGroup of contactGroups"
+          [value]="contactGroup"
+        >
+          {{ contactGroup.replace("_", " ") }}
+        </option>
+      </select>
+    </div>
+
+    <h4 class="fw-bold py-4">Address</h4>
+    <div formGroupName="address">
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          id="country"
+          formControlName="country"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="street">Street</label>
+        <input
+          type="text"
+          id="street"
+          formControlName="street"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input
+          type="text"
+          id="city"
+          formControlName="city"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="state">State</label>
+        <input
+          type="text"
+          id="state"
+          formControlName="state"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="zipCode">Zip Code</label>
+        <input
+          type="text"
+          id="zipCode"
+          formControlName="zipCode"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-evenly py-4">
+      <Button
+        (click)="goToContactList()"
+        type="button"
+        class="btn bg-primary cancel"
+        >Cancel</Button
+      >
+      <button
+        type="submit"
+        [disabled]="contactForm.invalid"
+        class="btn bg-success save"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,37 @@
+.fs-sm {
+  font-size: 18px; /* 12px */
+}
+.fs-xs {
+  font-size: 14px; /* 10px */
+}
+.fs-md {
+  font-size: 20px; /* 12px */
+}
+.fs-lg {
+  font-size: 24px; /* 14px */
+}
+.fs-xl {
+  font-size: 32px; /* 18px */
+}
+.fs-xxl {
+  font-size: 40px; /* 24px */
+}
+
+.h-sm {
+  height: 40px; /* 32px */
+}
+.h-xs {
+  height: 30px; /* 24px */
+}
+.h-md {
+  height: 50px; /* 32px */
+}
+.h-lg {
+  height: 60px; /* 40px */
+}
+.h-xl {
+  height: 70px; /* 48px */
+}
+.h-xxl {
+  height: 80px; /* 56px */
+}

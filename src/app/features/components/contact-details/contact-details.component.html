@@ -1,0 +1,376 @@
+<div class="">
+  <div>
+    <div class="w-100 b-gradient">
+      <div class="py-4 text-white">
+        <div class="d-flex justify-content-between align-items-center px-4">
+          <div
+            (click)="goToContactList()"
+            (keydown.enter)="goToContactList()"
+            (keydown.space)="goToContactList()"
+            tabindex="0"
+            class="d-flex align-items-center justify-content-center fw-semibold gap-1"
+          >
+            <i class="bi bi-chevron-left fw-bold"></i>
+            <span class="text-white">Contact</span>
+          </div>
+          <button class="btn" (click)="toggleVisibility()">
+            {{ isEditable ? "Cancel Edit" : "Edit Contact" }}
+          </button>
+        </div>
+        <div
+          class="d-flex h-auto flex-column gap-2 align-items-center justify-content-center"
+        >
+          <img
+            class="rounded-circle"
+            width="100"
+            height="100"
+            src="https://plus.unsplash.com/premium_photo-1689568158814-3b8e9c1a9618?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBpY3N8ZW58MHx8MHx8fDA%3D"
+            alt="avatar"
+          />
+
+          <div
+            class="d-flex h-auto flex-column align-items-center justify-content-center mb-4"
+            style="height: 100px"
+          >
+            <h3 class="m-0 fs-sm fw-bold">
+              {{ contact?.firstName }} {{ contact?.lastName }}
+            </h3>
+            <p class="m-0 fs-xs">{{ contact?.phoneNumber }}</p>
+          </div>
+        </div>
+        <div class="d-flex mx-auto justify-content-evenly align-items-center">
+          <div class="d-flex flex-column align-items-center gap-2">
+            <div class="card-cs rounded-circle">
+              <i class="bi bi-chat-square-text fs-1"></i>
+            </div>
+            <span class="text-white">Message</span>
+          </div>
+          <div class="d-flex flex-column align-items-center gap-2">
+            <div class="card-cs rounded-circle">
+              <i class="bi bi-telephone fs-1"></i>
+            </div>
+            <span class="text-white">Call</span>
+          </div>
+          <div class="d-flex flex-column align-items-center gap-2">
+            <div class="card-cs rounded-circle">
+              <i class="bi bi-camera-video fs-1"></i>
+            </div>
+            <span class="text-white">Video</span>
+          </div>
+          <div class="d-flex flex-column align-items-center gap-2">
+            <div class="card-cs rounded-circle">
+              <i class="bi bi-envelope fs-1"></i>
+            </div>
+            <span class="text-white">Mail</span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!isEditable" class="view-mode bg-white rounded-top-5 p-4">
+        <div class="border-bottom border-2">
+          <h6 class="fw-bold">Email</h6>
+          <p class="text-secondary">{{ contact?.email }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">Mobile</h6>
+          <p class="text-secondary">{{ contact?.mobileNumber }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">Work Phone</h6>
+          <p class="text-secondary">{{ contact?.workPhone }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">Country</h6>
+          <p class="text-secondary">{{ contact?.address?.country }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">Street</h6>
+          <p class="text-secondary">{{ contact?.address?.street }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">State</h6>
+          <p class="text-secondary">{{ contact?.address?.state }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">City</h6>
+          <p class="text-secondary">{{ contact?.address?.city }}</p>
+        </div>
+        <div class="pt-2 border-bottom border-2">
+          <h6 class="fw-bold">Zip Code</h6>
+          <p class="text-secondary">{{ contact?.address?.zipCode }}</p>
+        </div>
+        <div class="py-2 border-bottom border-2">
+          <h6 class="fw-bold">Link Numbers</h6>
+          <div class="d-flex gap-3">
+            <i class="bi bi-whatsapp fs-1 whatsapp-green rounded-circle"></i>
+            <i class="bi bi-whatsapp fs-1 whatsapp-green rounded-circle"></i>
+            <i class="bi bi-whatsapp fs-1 whatsapp-green rounded-circle"></i>
+          </div>
+        </div>
+        <div class="py-2 border-bottom border-2">
+          <h6 class="fw-bold">Share Contact</h6>
+        </div>
+        <div class="py-2 border-bottom border-2">
+          <h6 class="fw-bold">Add to Favorites</h6>
+        </div>
+        <div class="py-2 border-bottom border-2">
+          <h6 class="fw-bold">Share My Location</h6>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isEditable" class="edit-mode d-flex flex-column w-100">
+      <div class="container">
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+          <div *ngIf="isEditable" class="edit-mode d-flex flex-column w-100">
+            <div class="container">
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <div class="bg-white rounded-top-5 p-4">
+                  <div class="py-1 border-bottom border-2">
+                    <h6 class="fw-semibold">Firstname</h6>
+                    <input
+                      type="text"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      name="firstName"
+                      formControlName="firstName"
+                      value="{{ contact?.firstName }}"
+                    />
+                    <div
+                      *ngIf="
+                        contactForm.controls['firstName'].invalid &&
+                        (contactForm.controls['firstName'].dirty ||
+                          contactForm.controls['firstName'].touched)
+                      "
+                      class="text-danger fs-xs"
+                    >
+                      <div
+                        *ngIf="
+                          contactForm.controls['firstName'].errors?.['required']
+                        "
+                      >
+                        Firstname is required!
+                      </div>
+                      <div
+                        *ngIf="
+                          contactForm.controls['firstName'].errors?.[
+                            'minlength'
+                          ]
+                        "
+                      >
+                        Firstname must have at least 3 characters!
+                      </div>
+                      <div
+                        *ngIf="
+                          contactForm.controls['firstName'].errors?.[
+                            'minlength'
+                          ]
+                        "
+                      >
+                        Firstname can have at most 20 characters!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-semibold">Lastname</h6>
+                    <input
+                      type="text"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      name="lastName"
+                      formControlName="lastName"
+                      value="{{ contact?.lastName }}"
+                    />
+                    <div
+                      *ngIf="
+                        contactForm.controls['lastName'].invalid &&
+                        (contactForm.controls['lastName'].dirty ||
+                          contactForm.controls['lastName'].touched)
+                      "
+                      class="text-danger fs-xs"
+                    >
+                      <div
+                        *ngIf="
+                          contactForm.controls['lastName'].errors?.['required']
+                        "
+                      >
+                        Lastname is required!
+                      </div>
+                      <div
+                        *ngIf="
+                          contactForm.controls['lastName'].errors?.['minlength']
+                        "
+                      >
+                        Lastname must have at least 3 characters!
+                      </div>
+                      <div
+                        *ngIf="
+                          contactForm.controls['lastName'].errors?.['minlength']
+                        "
+                      >
+                        Lastname can have at most 20 characters!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-semibold">Email</h6>
+                    <input
+                      type="email"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      name="email"
+                      formControlName="email"
+                      value="{{ contact?.email }}"
+                    />
+                    <div
+                      *ngIf="
+                        contactForm.controls['email'].invalid &&
+                        (contactForm.controls['email'].dirty ||
+                          contactForm.controls['email'].touched)
+                      "
+                      class="text-danger fs-xs"
+                    >
+                      <div
+                        *ngIf="
+                          contactForm.controls['email'].errors?.['required']
+                        "
+                      >
+                        Email is required!
+                      </div>
+                      <div
+                        *ngIf="contactForm.controls['email'].errors?.['email']"
+                      >
+                        Email is not in valid format!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-semibold">Phone Number</h6>
+                    <input
+                      type="text"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      name="phoneNumber"
+                      formControlName="phoneNumber"
+                      value="{{ contact?.phoneNumber }}"
+                    />
+                    <div
+                      *ngIf="
+                        contactForm.controls['phoneNumber'].invalid &&
+                        (contactForm.controls['phoneNumber'].dirty ||
+                          contactForm.controls['phoneNumber'].touched)
+                      "
+                      class="text-danger fs-xs"
+                    >
+                      <div
+                        *ngIf="
+                          contactForm.controls['phoneNumber'].errors?.[
+                            'required'
+                          ]
+                        "
+                      >
+                        Phone number is required!
+                      </div>
+                      <div
+                        *ngIf="
+                          contactForm.controls['phoneNumber'].errors?.[
+                            'pattern'
+                          ]
+                        "
+                      >
+                        Phone number must be 10 or 11 digits and may optionally
+                        start with 0.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-semibold">Mobile Number</h6>
+                    <input
+                      type="text"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      formControlName="mobileNumber"
+                      value="{{ contact?.mobileNumber }}"
+                    />
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-semibold">Work Phone</h6>
+                    <input
+                      type="text"
+                      class="w-100 border-0 bg-transparent fs-xs"
+                      formControlName="workPhone"
+                      value="{{ contact?.workPhone }}"
+                    />
+                  </div>
+                  <div class="py-2 border-bottom border-2">
+                    <h6 class="fw-bold">Groups</h6>
+                    <select
+                      class="w-100 border-0 bg-transparent options"
+                      formControlName="contactGroup"
+                    >
+                      <option value="Family">My Family</option>
+                      <option value="Friends">Friends</option>
+                      <option value="Work">Work</option>
+                      <option value="Clients">Clients</option>
+                      <option value="VIP">VIP</option>
+                      <option value="Emergency">Emergency</option>
+                      <option value="Others">Others</option>
+                    </select>
+                  </div>
+
+                  <fieldset formGroupName="address">
+                    <h4 class="fw-bold pt-2">Address</h4>
+                    <div class="py-2 border-bottom border-2">
+                      <h6 class="fw-semibold">Street</h6>
+                      <input
+                        type="text"
+                        class="w-100 border-0 bg-transparent fs-xs"
+                        formControlName="street"
+                        value="{{ contact?.address?.street }}"
+                      />
+                    </div>
+                    <div class="py-2 border-bottom border-2">
+                      <h6 class="fw-semibold">City</h6>
+                      <input
+                        type="text"
+                        class="w-100 border-0 bg-transparent fs-xs"
+                        formControlName="city"
+                        value="{{ contact?.address?.city }}"
+                      />
+                    </div>
+                    <div class="py-2 border-bottom border-2">
+                      <h6 class="fw-semibold">State</h6>
+                      <input
+                        type="text"
+                        class="w-100 border-0 bg-transparent fs-xs"
+                        formControlName="state"
+                        value="{{ contact?.address?.state }}"
+                      />
+                    </div>
+                    <div class="py-2 border-bottom border-2">
+                      <h6 class="fw-semibold">Zip Code</h6>
+                      <input
+                        type="text"
+                        class="w-100 border-0 bg-transparent fs-xs"
+                        formControlName="zipCode"
+                        value="{{ contact?.address?.zipCode }}"
+                      />
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div class="d-flex justify-content-evenly py-4">
+                  <button type="button" class="btn text-warning border">
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    [disabled]="contactForm.invalid"
+                    class="btn text-success border"
+                  >
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

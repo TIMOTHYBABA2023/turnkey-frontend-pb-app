@@ -1,1 +1,141 @@
 /* You can add global styles to this file, and also import other style files */
+.fs-sm {
+  font-size: 18px; /* 12px */
+}
+.fs-xs{
+  font-size: 14px; /* 10px */
+}
+.fs-md{
+  font-size: 20px; /* 12px */
+}
+.fs-lg{
+  font-size: 24px; /* 14px */
+}
+.fs-xl{
+  font-size: 32px; /* 18px */
+}
+.fs-xxl{
+  font-size: 40px; /* 24px */
+}
+
+.whatsapp-green {
+  width: 40px;
+  height: 40px;
+  background: #25D366;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.b-gradient {
+  background: linear-gradient(to bottom left, #716dfc, #8e63f2);
+}
+
+.card-cs {
+  width: 50px;
+  height: 50px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: dodgerblue;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.input-s {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.options {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.cancel:hover {
+  background-color: #ffc107; 
+  color: #ffffff; 
+}
+
+.save:hover {
+  background-color: #28a745; 
+  color: #ffffff; 
+}
+
+.greyish {
+  background-color:rgb(247, 248, 247); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-box {
+  border-radius: 10px;
+  min-width: 300px;
+}
+
+@media (min-width: 576px) { 
+  .custom-box {
+    border-radius: 10px;
+    min-width: 500px;
+    /* max-width: 1300px; */
+  }
+}
+
+.list-item {
+  background: white;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.list-item:hover {
+  background: #f8f9fa;
+}
+
+.grid-item {
+  background: white;
+  width: 250px; 
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.grid-item:hover {
+  transform: translateY(-2px);
+}
+
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem; 
+  width: 100%; 
+  margin: 0 auto; 
+}
+
+.dd-flex {
+  transition: all 0.3s ease-in-out;
+}
+@media (max-width: 768px) {
+  .grid-view {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller columns on mobile */
+  }
+
+  .list-view {
+    padding: 0.5rem; /* Reduce padding on mobile */
+  }
+}

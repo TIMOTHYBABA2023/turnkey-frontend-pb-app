@@ -1,0 +1,24 @@
+<div [ngClass]="isGrid ? 'grid-item' : 'list-item'">
+  <div class="h-xxl d-flex flex-row justify-content-between align-items-center px-3 cursor-pointer">
+    <div class="d-flex flex-row align-items-center gap-3">
+      <input type="checkbox" class="form-check-input shadow-none focus-ring-0"
+             (change)="onCheckboxChange($event)">
+
+      <div (click)="selectContact()" (keydown.enter)="selectContact()" 
+           (keydown.space)="selectContact()" 
+           tabindex="0" class="d-flex h-auto flex-row gap-3 align-items-center">
+        <img class="rounded-circle" width="50" height="50"
+             src="https://plus.unsplash.com/premium_photo-1689568158814-3b8e9c1a9618?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZSUyMHBpY3N8ZW58MHx8MHx8fDA%3D"
+             alt="avatar"/>
+
+        <div class="d-flex h-auto flex-column align-items-start justify-content-center p-2"
+             style="height: 100px;">
+          <h3 class="m-0 fs-sm fw-bold">{{contact.firstName}}  {{contact.lastName}}</h3>
+          <p class="m-0 fs-xs text-secondary ">{{contact.phoneNumber}}</p>
+        </div>
+      </div>
+    </div>
+
+    <i class="fa-solid fa-ellipsis-vertical fs-lg text-secondary cursor-pointer"></i>
+  </div>
+</div>
