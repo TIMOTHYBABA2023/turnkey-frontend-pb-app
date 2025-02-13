@@ -8,6 +8,7 @@ import { ContactResponseData } from '../components/row/types';
 import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
+import { DarkModeServiceService } from '../../core/services/dark-mode/dark-mode-service.service';
 
 @Component({
   selector: 'app-layout',
@@ -21,6 +22,7 @@ import { ConfirmationModalComponent } from '../../confirmation-modal/confirmatio
   styleUrl: './layout.component.css',
 })
 export class LayoutComponent implements OnInit {
+  activeTab: 'favorites' | 'contacts' = 'contacts';
   contacts: ContactResponseData[] = [];
   isListView = true;
   filteredContacts: ContactResponseData[] = [];
@@ -31,10 +33,27 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private contactService: ContactService,
     private modalService: NgbModal,
+    public darkModeServiceService: DarkModeServiceService
   ) {}
+
   ngOnInit(): void {
+    // Load view preference from local storage
+    const savedView = localStorage.getItem('viewPreference');
+    if (savedView) {
+      this.isListView = savedView === 'list';
+    }
     this.fetchContacts();
+
   }
+
+    // Filter contacts based on the active tab
+    filterContacts(): void {
+      if (this.activeTab === 'favorites') {
+        this.filteredContacts = this.contacts.filter(contact => contact.isFavorite);
+      } else {
+        this.filteredContacts = this.contacts; 
+      }
+    }
 
   goToContactDetails() {
     this.router.navigate(['contacts-details']);
@@ -127,7 +146,13 @@ export class LayoutComponent implements OnInit {
     }
   }
 
-  toggleView() {
+  toggleView(): void {
     this.isListView = !this.isListView;
+    // Save view preference to local storage
+    localStorage.setItem('viewPreference', this.isListView ? 'list' : 'grid');
+  }
+
+  toggleDarkMode(): void {
+    this.darkModeServiceService.toggleDarkMode();
   }
 }

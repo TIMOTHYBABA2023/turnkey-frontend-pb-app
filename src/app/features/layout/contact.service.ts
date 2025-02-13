@@ -38,7 +38,7 @@ export class ContactService {
         data: number;
         success: boolean;
         statusCode: number;
-      }>(`${this.apiUrl}/count`)
+      }>(`${this.apiUrl}/contactCount`) // Update the URL
       .pipe(
         catchError((error) => {
           console.error('Error fetching contact count:', error);
@@ -51,6 +51,7 @@ export class ContactService {
         }),
       );
   }
+  
 
   updateContact(
     id: number,

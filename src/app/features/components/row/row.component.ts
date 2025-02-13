@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ContactResponseData } from './types';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './row.component.css',
 })
 export class RowComponent {
-  [x: string]: unknown;
+  // [x: string]: unknown;
   @Input() contact!: ContactResponseData;
   @Input() isGrid = false;
   @Output() toggleSelection = new EventEmitter<{
@@ -18,7 +19,9 @@ export class RowComponent {
     checked: boolean;
   }>();
 
-  constructor(private router: Router) {}
+  private apiUrl = 'http://localhost:8080/api/contacts/toggleIsFavorite';
+
+  constructor(private router: Router, private http: HttpClient) {}
 
   onCheckboxChange(event: Event): void {
     event.stopPropagation();
@@ -33,4 +36,21 @@ export class RowComponent {
       state: { contact: this.contact },
     });
   }
+
+  toggleFavorite(event: Event): void {
+    event.stopPropagation();
+    const url = `${this.apiUrl}/${this.contact.id}`;
+    console.log('Calling URL:', url);
+    
+    this.http.post(url, {}).subscribe({
+      next: (response) => {
+        console.log('Success:', response);
+        this.contact.isFavorite = !this.contact.isFavorite;
+      },
+      error: (error) => {
+        console.error('Error details:', error);
+      }
+    });
+}
+
 }

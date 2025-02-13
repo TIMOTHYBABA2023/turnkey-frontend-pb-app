@@ -26,6 +26,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
   contactGroups = Object.values(ContactGroup); //Check
   isEditable = false;
   backendError = '';
+  
 
   constructor(
     private fb: FormBuilder,
@@ -123,7 +124,7 @@ export class ContactDetailsComponent implements OnInit, OnChanges {
         phoneNumber: this.contact.phoneNumber,
         mobileNumber: this.contact.mobileNumber,
         workPhone: this.contact.workPhone,
-        contactGroup: this.contact.group,
+        contactGroup: this.contact.contactGroup,
         address: this.contact.address || {
           street: '',
           city: '',

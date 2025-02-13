@@ -1,7 +1,5 @@
 export interface ContactResponseData {
   id: number;
-  createdAt: string; // ISO date format
-  modifiedAt: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -10,7 +8,7 @@ export interface ContactResponseData {
   phoneNumber: string;
   mobileNumber: string;
   workPhone: string;
-  group?: string;
+  contactGroup?: string;
   address?: {
     id?: number;
     country?: string;
@@ -30,14 +28,6 @@ export interface AddressResponse {
   city: string;
   state: string;
   zipCode: string;
-}
-
-export interface GroupResponse {
-  id: number;
-  createdAt: string;
-  modifiedAt: string;
-  name: string;
-  description: string;
 }
 
 export interface ApiResponse<D> {
@@ -83,7 +73,7 @@ export interface NewContactRequest {
   phoneNumber: string;
   mobileNumber?: string;
   workPhone?: string;
-  group?: string;
+  contactGroup?: string;
   address?: {
     country?: string;
     street?: string;

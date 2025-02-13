@@ -91,7 +91,7 @@ export class AddContactComponentComponent {
       phoneNumber: formValue.phoneNumber,
       mobileNumber: formValue.mobileNumber,
       workPhone: formValue.workPhone,
-      contactGroup: formValue.group || null,
+      contactGroup: formValue.contactGroup || null,
       address: {
         street: formValue.address.street,
         country: formValue.address.country,

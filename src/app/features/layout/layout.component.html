@@ -1,4 +1,9 @@
-<div>
+<div class="laymode">
+  <div class="w-100 d-flex justify-content-end mx-10">
+    <button class="rounded-1" (click)="toggleDarkMode()">
+      {{ darkModeServiceService.isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+    </button>
+  </div>
   <app-top-navbar (searchEvent)="onSearch($event)"></app-top-navbar>
 
   <div *ngIf="selectedContacts.length > 0" class="d-flex gap-3 p-3">
@@ -18,9 +23,7 @@
     <div
       [ngClass]="isListView ? 'list-view' : 'grid-view'"
       class="d-flex gap-3 flex-wrap justify-content-center"
-    >
-      <div class=""></div>
-      <app-row
+    >      <app-row
         *ngFor="let contact of filteredContacts"
         [contact]="contact"
         [isGrid]="!isListView"
