@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { RowComponent } from '../components/row/row.component';
 import { BottomNavbarComponent } from '../components/bottom-navbar/bottom-navbar.component';
@@ -9,6 +9,9 @@ import { CommonModule } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationModalComponent } from '../../confirmation-modal/confirmation-modal.component';
 import { DarkModeServiceService } from '../../core/services/dark-mode/dark-mode-service.service';
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-layout',
@@ -22,6 +25,7 @@ import { DarkModeServiceService } from '../../core/services/dark-mode/dark-mode-
   styleUrl: './layout.component.css',
 })
 export class LayoutComponent implements OnInit {
+  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
   activeTab: 'favorites' | 'contacts' = 'contacts';
   contacts: ContactResponseData[] = [];
   isListView = true;
@@ -33,7 +37,8 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private contactService: ContactService,
     private modalService: NgbModal,
-    public darkModeServiceService: DarkModeServiceService
+    public darkModeServiceService: DarkModeServiceService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -155,4 +160,38 @@ export class LayoutComponent implements OnInit {
   toggleDarkMode(): void {
     this.darkModeServiceService.toggleDarkMode();
   }
+
+  // Export Contacts
+  exportContacts() {
+    const exportUrl = 'http://localhost:8080/api/contacts/export';
+    this.http.get(exportUrl, { responseType: 'blob' }).subscribe((blob) => {
+      const a = document.createElement('a');
+      a.href = window.URL.createObjectURL(blob);
+      a.download = 'contacts.csv'; // Change extension if needed
+      a.click();
+      window.URL.revokeObjectURL(a.href);
+    });
+  }
+
+  // Import Contacts
+  importContacts(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (!inputElement.files || inputElement.files.length === 0) {
+      return;
+    }
+
+    const file: File = inputElement.files[0];
+    const importUrl = 'http://localhost:8080/api/contacts/import';
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.http.post(importUrl, formData).subscribe({
+      next: () => alert('Contacts imported successfully!'),
+      error: (err) => alert(`Import failed: ${err.message}`)
+    });
+
+    // Reset the file input field
+    this.fileInput.nativeElement.value = '';
+  }
+
 }

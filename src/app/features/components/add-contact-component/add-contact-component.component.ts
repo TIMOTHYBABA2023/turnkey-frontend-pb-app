@@ -10,11 +10,13 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ContactGroup } from '../../../enums/contactGroup.enum';
 import { Router } from '@angular/router';
+import { ModalService } from '../../../core/services/modal/modal.service';
+import { ModalComponent } from '../../../modal/modal.component';
 
 @Component({
   selector: 'app-add-contact-component',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, NgSelectModule, ModalComponent], 
   templateUrl: './add-contact-component.component.html',
   styleUrls: ['./add-contact-component.component.css'],
 })
@@ -30,6 +32,7 @@ export class AddContactComponentComponent {
     private fb: FormBuilder,
     private router: Router,
     private http: HttpClient,
+    private modalService: ModalService
   ) {
     this.contactForm = this.fb.group({
       firstName: ['', [Validators.required]],
@@ -103,19 +106,33 @@ export class AddContactComponentComponent {
 
     this.http.post(this.apiUrl, contactRequest).subscribe({
       next: () => {
-        this.successMessage = 'Contact added successfully!';
+        this.modalService.show({
+          message: 'Contact added successfully!',
+          type: 'success'
+        });
         this.contactForm.reset();
       },
       error: (error) => {
-        if (error.status === 409) {
-          this.backendError = 'Contact already exists, change phone number.';
+        let errorMessage = 'An error occurred while adding the contact';
+            if (error.error?.message?.includes('duplicate key value violates unique constraint')) {
+          if (error.error.message.includes('email')) {
+            errorMessage = 'A contact with this email already exists.';
+          } else if (error.error.message.includes('phone_number')) {
+            errorMessage = 'A contact with this phone number already exists.';
+          } else {
+            errorMessage = 'This contact already exists in the system.';
+          }
         } else if (error.error?.message) {
-          this.backendError = error.error.message;
-        } else {
-          this.backendError = 'An error occurred while adding the contact';
+          errorMessage = error.error.message;
         }
+        
+        this.modalService.show({
+          message: errorMessage,
+          type: 'error'
+        });
       },
     });
+  
   }
   closeSuccessMessage(): void {
     this.successMessage = null;

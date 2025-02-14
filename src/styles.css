@@ -34,6 +34,9 @@ body {
 }
 
 
+.fs-xsm {
+  font-size: 12px; /* 10px */
+}
 .fs-sm {
   font-size: 18px; /* 12px */
 }
@@ -114,8 +117,15 @@ input:focus {
 }
 
 .greyish {
-  background-color:rgb(37, 39, 37); 
+  background-color:rgb(59, 59, 59); 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.greyish2 {
+  background-color:rgb(166, 157, 177); 
+}
+.greyish3 {
+  background-color:rgba(166, 157, 177, 1); 
 }
 
 .custom-box {
@@ -148,7 +158,6 @@ input:focus {
 }
 
 .grid-item {
-  background: white;
   width: 300px; 
   border: 1px solid #dddddd;
   border-radius: 10px;

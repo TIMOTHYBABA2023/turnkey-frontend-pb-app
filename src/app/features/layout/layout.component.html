@@ -6,20 +6,35 @@
   </div>
   <app-top-navbar (searchEvent)="onSearch($event)"></app-top-navbar>
 
+ <div class="d-flex justify-content-end gap-1 px-">
   <div *ngIf="selectedContacts.length > 0" class="d-flex gap-3 p-3">
     <button class="btn btn-danger" (click)="bulkDelete()">
       {{ selectedContacts.length === 1 ? "Delete" : "Delete All" }}
     </button>
   </div>
+  <button class="fs-xsm btn btn-outline-secondary" (click)="exportContacts()">
+    Export Contacts
+  </button>
+  
+  <button class="fs-xsm btn btn-outline-secondary" (click)="fileInput.click()">
+    Import Contacts
+  </button>
+  <input
+    type="file"
+    #fileInput
+    style="display: none"
+    (change)="importContacts($event)"
+  />
+  
+  <div class="d-flexmb-3">
+    <button class="btn btn-outline-secondary" (click)="toggleView()">
+      <i class="fa-solid" [ngClass]="isListView ? 'fa-list' : 'fa-grid'"></i>
+      {{ isListView ? "List View" : "Grid View" }}
+    </button>
+  </div>
 
+ </div>
   <div class="mb-10 mx-10" *ngIf="filteredContacts.length > 0; else emptyState">
-    <div class="d-flex justify-content-end mb-3">
-      <button class="btn btn-outline-secondary" (click)="toggleView()">
-        <i class="fa-solid" [ngClass]="isListView ? 'fa-list' : 'fa-grid'"></i>
-        {{ isListView ? "List View" : "Grid View" }}
-      </button>
-    </div>
-
     <div
       [ngClass]="isListView ? 'list-view' : 'grid-view'"
       class="d-flex gap-3 flex-wrap justify-content-center"

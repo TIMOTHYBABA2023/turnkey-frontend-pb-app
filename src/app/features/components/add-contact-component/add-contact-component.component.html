@@ -1,24 +1,13 @@
 <div class="d-flex flex-column align-items-center p-4">
-  <div class="alert alert-danger m-2" *ngIf="backendError">
-    {{ backendError }}
-  </div>
-  <div
-    class="text-primary m-2 d-flex justify-content-between align-items-center"
-    *ngIf="successMessage"
-  >
-    <span>{{ successMessage }}</span>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="closeSuccessMessage()"
-    ></button>
+  <div class="w-100">
+    <app-modal></app-modal>
   </div>
   <form
     [formGroup]="contactForm"
     (ngSubmit)="onSubmit()"
-    class="custom-box greyish p-4"
+    class="custom-box greyish2 text-black p-4"
   >
+  <h1 class="text-center">Add Contact</h1>
     <div class="form-group">
       <label for="firstName">Firstname</label>
       <input
@@ -140,7 +129,7 @@
           type="text"
           id="country"
           formControlName="country"
-          class="form-control"
+          class="form-control "
         />
       </div>
       <div class="form-group">

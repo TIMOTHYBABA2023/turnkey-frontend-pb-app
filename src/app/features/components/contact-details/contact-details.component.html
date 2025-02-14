@@ -128,11 +128,11 @@
     <div *ngIf="isEditable" class="edit-mode d-flex flex-column w-100">
       <div class="">
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-          <div *ngIf="isEditable" class="edit-mode d-flex flex-column w-100">
+          <div *ngIf="isEditable" class="greyish2 d-flex flex-column w-100">
             <div class="container">
               <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                 <div class="p-4">
-                  <div class="py-1 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Firstname</h6>
                     <input
                       type="text"
@@ -176,7 +176,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="py-2 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Lastname</h6>
                     <input
                       type="text"
@@ -216,7 +216,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="py-2 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Email</h6>
                     <input
                       type="email"
@@ -247,7 +247,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="py-2 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Phone Number</h6>
                     <input
                       type="text"
@@ -285,7 +285,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="py-2 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Mobile Number</h6>
                     <input
                       type="text"
@@ -294,7 +294,7 @@
                       value="{{ contact?.mobileNumber }}"
                     />
                   </div>
-                  <div class="py-2 border-bottom border-2">
+                  <div class="p-2 border-bottom border-2">
                     <h6 class="fw-semibold">Work Phone</h6>
                     <input
                       type="text"
@@ -304,8 +304,8 @@
                     />
                   </div>
 
-                  <div class="py-2 border-bottom border-2">
-                    <h6 class="fw-bold">Groups</h6>
+                  <div class="p-2 border-bottom border-2">
+                    <h6 clagreyishss="fw-bold">Groups</h6>
                     <select
                       class="w-100 border-0 bg-transparent options"
                       formControlName="contactGroup"
@@ -321,7 +321,7 @@
 
                   <fieldset formGroupName="address">
                     <h4 class="fw-bold pt-2">Address</h4>
-                    <div class="py-2 border-bottom border-2">
+                    <div class="p-2 border-bottom border-2">
                       <h6 class="fw-semibold">Street</h6>
                       <input
                         type="text"
@@ -330,7 +330,7 @@
                         value="{{ contact?.address?.street }}"
                       />
                     </div>
-                    <div class="py-2 border-bottom border-2">
+                    <div class="p-2 border-bottom border-2">
                       <h6 class="fw-semibold">City</h6>
                       <input
                         type="text"
@@ -339,7 +339,7 @@
                         value="{{ contact?.address?.city }}"
                       />
                     </div>
-                    <div class="py-2 border-bottom border-2">
+                    <div class="p-2 border-bottom border-2">
                       <h6 class="fw-semibold">State</h6>
                       <input
                         type="text"
@@ -348,7 +348,7 @@
                         value="{{ contact?.address?.state }}"
                       />
                     </div>
-                    <div class="py-2 border-bottom border-2">
+                    <div class="p-2 greyish2 border-bottom border-2">
                       <h6 class="fw-semibold">Zip Code</h6>
                       <input
                         type="text"
@@ -361,7 +361,7 @@
                 </div>
 
                 <div class="d-flex justify-content-evenly py-4">
-                  <button type="button" class="btn text-warning border">
+                  <button (click)="toggleVisibility()" type="button" class="btn text-warning border">
                     Cancel
                   </button>
                   <button
